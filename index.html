@@ -10,157 +10,64 @@
     
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body, html { background: #000; color: white; font-family: 'Inter', sans-serif; scroll-behavior: smooth; overflow-x: hidden; }
+        body, html { background: #000; color: white; font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
 
-        /* Background Video */
-        #bg-video {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -100;
-            object-fit: cover; filter: brightness(0.4); 
-        }
-
+        /* 1. WELCOME SECTION */
         .welcome-section {
             height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
-            text-align: center; padding: 20px;
+            text-align: center; padding: 20px; background: #000;
         }
+        .welcome-section h2 { font-family: 'Orbitron', sans-serif; font-size: 2rem; color: #ff8c00; text-shadow: 0 0 15px #ff4500; }
+        .scroll-hint { margin-top: 50px; animation: bounce 2s infinite; color: #ff4500; font-size: 2.5rem; }
 
+        /* 2. PROFILE SECTION */
         .profile-container {
-            min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 60px 20px;
+            min-height: 100vh; display: flex; align-items: center; justify-content: center; 
+            padding: 60px 20px; position: relative;
         }
 
-        /* SEMI-TRANSPARENT LIGHTER CARD */
         .card {
-            background: rgba(255, 255, 255, 0.1); /* Lighter than background */
-            backdrop-filter: blur(15px); 
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.2); 
-            border-radius: 40px;
+            background: rgba(255, 255, 255, 0.12); 
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 40px;
             padding: 45px 20px; width: 100%; max-width: 420px; text-align: center;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+            z-index: 10;
         }
 
         .profile-img {
             width: 130px; height: 130px; border-radius: 50%; border: 3px solid #ff4500;
             margin: 0 auto 20px; background: url('https://files.catbox.moe/w2mevz.jpg') center/cover;
-            box-shadow: 0 0 30px rgba(255, 69, 0, 0.7);
+            box-shadow: 0 0 30px rgba(255, 69, 0, 0.8);
         }
 
-        /* ORANGE GLOW NAME */
         h1 { 
-            font-family: 'Orbitron', sans-serif; 
-            font-size: 2.8rem; 
-            margin-bottom: 25px; 
-            letter-spacing: 4px; 
-            color: #fff;
-            text-shadow: 0 0 10px #ff8c00, 0 0 20px #ff4500, 0 0 30px #ff0000;
+            font-family: 'Orbitron', sans-serif; font-size: 2.8rem; margin-bottom: 25px; 
+            color: #fff; text-shadow: 0 0 10px #ff8c00, 0 0 20px #ff4500;
             animation: pulseGlow 2s infinite alternate;
         }
 
-        @keyframes pulseGlow {
-            from { text-shadow: 0 0 10px #ff8c00, 0 0 20px #ff4500; }
-            to { text-shadow: 0 0 20px #ff8c00, 0 0 40px #ff4500, 0 0 60px #ff0000; }
+        /* 3. VIDEO SECTION */
+        .video-wrapper {
+            width: 100%; height: 100vh; display: flex; align-items: center; justify-content: center;
+            background: #000; overflow: hidden;
+        }
+        #bg-video {
+            width: 100%; height: 100%; object-fit: cover; filter: brightness(0.9);
         }
 
-        /* LIGHTER GLASS TILES */
+        /* TILES WITH LOGOS */
         .links-stack { display: flex; flex-direction: column; gap: 15px; }
         .tile {
-            background: rgba(255, 255, 255, 0.15); /* Slightly lighter for visibility */
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 20px; border-radius: 25px; text-decoration: none; color: white;
+            background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 18px; border-radius: 20px; text-decoration: none; color: white;
             display: flex; align-items: center; justify-content: space-between;
-            transition: 0.3s ease;
+            transition: 0.3s;
         }
-        .tile:hover { background: rgba(255, 255, 255, 0.25); transform: translateY(-2px); }
-
+        .tile:active { transform: scale(0.98); background: rgba(255, 255, 255, 0.2); }
+        
         .tile-left { display: flex; align-items: center; gap: 15px; }
-        .tile-left img { width: 38px; height: 38px; object-fit: contain; }
-        .tile-name { font-weight: 700; font-size: 1.2rem; }
-        .tile-id { font-family: monospace; font-size: 1.1rem; color: #ff8c00; font-weight: 900; }
-
-        .copy-btn { background: #ff4500; border: none; color: white; padding: 10px 18px; border-radius: 12px; font-weight: 800; cursor: pointer; }
-
-        .music-ui {
-            background: rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 15px; margin-bottom: 30px;
-            display: flex; align-items: center; justify-content: center; gap: 15px; border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .music-btn { cursor: pointer; color: #ff4500; font-size: 1.6rem; }
-        #volume-slider { width: 100px; accent-color: #ff4500; cursor: pointer; }
-
-        #toast {
-            visibility: hidden; min-width: 200px; background: #ff4500; color: white;
-            padding: 15px; position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%);
-            border-radius: 50px; font-weight: 800; z-index: 9999; text-align: center;
-        }
-        #toast.show { visibility: visible; animation: pop 0.4s; }
-
-        @keyframes pop { from {opacity: 0; bottom: 10px;} to {opacity: 1; bottom: 40px;} }
-    </style>
-</head>
-<body>
-
-    <video autoplay muted loop playsinline id="bg-video">
-        <source src="https://files.catbox.moe/fga606.mp4" type="video/mp4">
-    </video>
-    
-    <audio id="bg-music" loop playsinline>
-        <source src="music.mp3" type="audio/mpeg">
-    </audio>
-
-    <div class="welcome-section">
-        <h2 style="color: #ff8c00; font-family: 'Orbitron';">Welcome to my page</h2>
-        <p style="color: #ccc; margin-top: 10px;">Just a developer who makes codes for fun...feel free to text me ion bite</p>
-    </div>
-
-    <div class="profile-container">
-        <div class="card">
-            <div class="profile-img"></div>
-            <h1>DARKSIDE</h1>
-            
-            <div class="music-ui">
-                <i id="play-btn" class="fas fa-play music-btn" onclick="toggleMusic()"></i>
-                <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.5">
-            </div>
-
-            <div class="links-stack">
-                <a href="https://wa.me/233530729233" class="tile">
-                    <div class="tile-left">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA">
-                        <span class="tile-name">WhatsApp</span>
-                    </div>
-                </a>
-
-                <a href="https://t.me/darkside_solos" class="tile">
-                    <div class="tile-left">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="TG">
-                        <span class="tile-name">Telegram</span>
-                    </div>
-                </a>
-
-                <div class="tile" onclick="copyVal('8443778220')" style="cursor:pointer">
-                    <div class="tile-left">
-                        <img src="https://files.catbox.moe/p0clnc.jpg" alt="FF">
-                        <span class="tile-id">8443778220</span>
-                    </div>
-                    <button class="copy-btn">COPY</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="toast">✅ UID COPIED!</div>
-
-    <script>
-        const music = document.getElementById("bg-music");
-        const playBtn = document.getElementById("play-btn");
-        const volumeSlider = document.getElementById("volume-slider");
-
-        function toggleMusic() {
-            if (music.paused) { 
-                music.play();
-                playBtn.className = "fas fa-pause music-btn"; 
-            } else { 
-                music.pause(); 
-                playBtn.className = "fas fa-play music-btn"; 
-            }
-        }
-
-        volumeSlider.addEventListener("input", (e) => { music.volume = e.target.value;
+        .tile-left img { width: 35px; height: 35px; object-fit: contain; }
+        .tile-name { font-weight: 700; font-size: 1.1rem; }
+        
+        .tile-id { font-family: monospace; font-size: 1.1rem
