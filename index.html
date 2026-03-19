@@ -12,10 +12,11 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body, html { background: #000; color: white; font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
 
-        /* VIDEO ALWAYS PLAYING IN BACKGROUND */
-        #bg-video {
+        /* SHARP BACKGROUND IMAGE */
+        .main-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
-            object-fit: cover; filter: brightness(0.5); 
+            background: url('https://files.catbox.moe/q8q54m.jpg') center/cover no-repeat;
+            filter: brightness(0.65); /* Made slightly lighter as requested */
             opacity: 0; transition: opacity 1s ease;
         }
 
@@ -33,12 +34,14 @@
             padding: 60px 20px; position: relative;
         }
 
+        /* MINIMAL BLUR CARD - For maximum image visibility */
         .card {
-            background: rgba(255, 255, 255, 0.12); 
-            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 40px;
+            background: rgba(255, 255, 255, 0.05); 
+            backdrop-filter: blur(4px); /* Reduced from 8px for sharpness */
+            -webkit-backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 40px;
             padding: 45px 20px; width: 100%; max-width: 420px; text-align: center;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
         }
 
         .profile-img {
@@ -53,26 +56,28 @@
             animation: pulseGlow 2s infinite alternate;
         }
 
-        /* TILES WITH LOGOS */
+        /* TILES & LOGOS */
         .links-stack { display: flex; flex-direction: column; gap: 15px; }
         .tile {
-            background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08);
             padding: 18px; border-radius: 20px; text-decoration: none; color: white;
             display: flex; align-items: center; justify-content: space-between;
         }
         
         .tile-left { display: flex; align-items: center; gap: 15px; }
-        .tile-left img { width: 35px; height: 35px; object-fit: contain; border-radius: 8px; }
+        .tile-left img { width: 35px; height: 35px; object-fit: contain; }
         .tile-name { font-weight: 700; font-size: 1.1rem; }
         
         .copy-btn { background: #ff4500; border: none; color: white; padding: 10px 20px; border-radius: 12px; font-weight: 800; cursor: pointer; }
 
+        /* MUSIC UI */
         .music-ui {
-            background: rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 15px; margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.05); border-radius: 20px; padding: 15px; margin-bottom: 30px;
             display: flex; align-items: center; justify-content: center; gap: 15px;
         }
-        .music-btn { cursor: pointer; color: #ff4500; font-size: 1.6rem; }
-        #volume-slider { width: 100px; accent-color: #ff4500; }
+        .music-btn { cursor: pointer; color: #ff4500; font-size: 1.8rem; transition: transform 0.2s; }
+        .music-btn:active { transform: scale(1.2); }
+        #volume-slider { width: 110px; accent-color: #ff4500; cursor: pointer; }
 
         #toast {
             visibility: hidden; min-width: 200px; background: #ff4500; color: white;
@@ -90,16 +95,14 @@
 </head>
 <body>
 
-    <video loop playsinline id="bg-video">
-        <source src="https://files.catbox.moe/fga606.mp4" type="video/mp4">
-    </video>
+    <div class="main-bg" id="bg-img"></div>
 
     <audio id="bg-music" loop playsinline><source src="music.mp3" type="audio/mpeg"></audio>
 
     <div class="welcome-section">
         <h2>Welcome to my page</h2>
-        <h2>You can text me ion bite</h2>
-        <p>Swipe up for the full experience...edit and music(andriod)</p>
+        <p> You can text me if you wanna know how i created this<p>
+        <p>Swipe up for the full experience...</p>
         <div class="scroll-hint"><i class="fas fa-chevron-down"></i></div>
     </div>
 
@@ -142,21 +145,15 @@
     <div id="toast">✅ UID COPIED!</div>
 
     <script>
-        const video = document.getElementById('bg-video');
+        const bgImg = document.getElementById('bg-img');
         const profile = document.getElementById('profile-section');
         const music = document.getElementById("bg-music");
         const playBtn = document.getElementById("play-btn");
 
-        // Logic: Video fades in and starts with sound as soon as you swipe
         window.addEventListener('scroll', () => {
             const rect = profile.getBoundingClientRect();
             if (rect.top < window.innerHeight) {
-                video.style.opacity = "1";
-                video.muted = false;
-                video.play().catch(() => {
-                    video.muted = true; 
-                    video.play();
-                });
+                bgImg.style.opacity = "1";
             }
         });
 
