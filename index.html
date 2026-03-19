@@ -12,61 +12,62 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body, html { background: #000; color: white; font-family: 'Inter', sans-serif; scroll-behavior: smooth; overflow-x: hidden; }
 
-        /* Background & Snow */
+        /* Background Video & Snow */
         #bg-video, #particles-js {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -100;
-            object-fit: cover; filter: brightness(0.2);
+            object-fit: cover; filter: brightness(0.35); /* Increased brightness to see the video better */
         }
 
-        /* 1. TOP WELCOME SECTION */
         .welcome-section {
             height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
             text-align: center; padding: 20px;
         }
-        .welcome-section h2 { font-family: 'Orbitron', sans-serif; font-size: 1.8rem; color: #ff8c00; margin-bottom: 15px; letter-spacing: 2px; }
-        .welcome-section p { font-size: 1.1rem; color: #bbb; max-width: 350px; line-height: 1.6; }
-        .scroll-hint { margin-top: 50px; animation: bounce 2s infinite; color: #ff4500; font-size: 1.8rem; }
+        .welcome-section h2 { font-family: 'Orbitron', sans-serif; font-size: 1.8rem; color: #ff8c00; margin-bottom: 15px; }
 
-        /* 2. PROFILE SECTION */
         .profile-container {
             min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 60px 20px;
         }
+
+        /* FULLY TRANSPARENT CARD */
         .card {
-            background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
-            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 40px;
+            background: rgba(255, 255, 255, 0); /* Removed background color */
+            backdrop-filter: blur(10px); /* Slight blur so text stays readable */
+            -webkit-backdrop-filter: blur(10px);
+            border: 1.5px solid rgba(255, 255, 255, 0.2); /* Soft border to define the card shape */
+            border-radius: 40px;
             padding: 45px 20px; width: 100%; max-width: 420px; text-align: center;
-            box-shadow: 0 0 80px rgba(0,0,0,0.8);
         }
 
         .profile-img {
             width: 130px; height: 130px; border-radius: 50%; border: 3px solid #ff4500;
             margin: 0 auto 20px; background: url('https://files.catbox.moe/w2mevz.jpg') center/cover;
-            box-shadow: 0 0 30px rgba(255, 69, 0, 0.5);
+            box-shadow: 0 0 25px rgba(255, 69, 0, 0.6);
         }
 
-        h1 { font-family: 'Orbitron', sans-serif; font-size: 2.4rem; margin-bottom: 30px; letter-spacing: 2px; }
+        h1 { font-family: 'Orbitron', sans-serif; font-size: 2.6rem; margin-bottom: 25px; letter-spacing: 3px; }
 
-        /* Music UI */
         .music-ui {
-            background: rgba(0,0,0,0.6); border-radius: 20px; padding: 15px; margin-bottom: 30px;
-            display: flex; align-items: center; justify-content: center; gap: 15px; border: 1px solid rgba(255, 69, 0, 0.3);
+            background: rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 15px; margin-bottom: 30px;
+            display: flex; align-items: center; justify-content: center; gap: 15px; border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        .music-btn { cursor: pointer; color: #ff4500; font-size: 1.6rem; transition: 0.3s; }
+        .music-btn { cursor: pointer; color: #ff4500; font-size: 1.6rem; }
         #volume-slider { width: 100px; accent-color: #ff4500; cursor: pointer; }
 
-        /* Links Stack */
+        /* TRANSPARENT TILES */
         .links-stack { display: flex; flex-direction: column; gap: 15px; }
         .tile {
-            background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05); /* Very light transparency */
+            border: 1px solid rgba(255, 255, 255, 0.15);
             padding: 20px; border-radius: 25px; text-decoration: none; color: white;
-            display: flex; align-items: center; justify-content: space-between; transition: 0.3s;
+            display: flex; align-items: center; justify-content: space-between;
         }
+        .tile:active { background: rgba(255, 255, 255, 0.2); }
         .tile-left { display: flex; align-items: center; gap: 15px; }
-        .tile-left img { width: 38px; height: 38px; object-fit: contain; }
+        .tile-left img { width: 36px; height: 36px; object-fit: contain; }
         .tile-name { font-weight: 700; font-size: 1.2rem; }
         .tile-id { font-family: monospace; font-size: 1.1rem; color: #ff8c00; font-weight: 900; }
 
-        .copy-btn { background: #ff4500; border: none; color: white; padding: 10px 20px; border-radius: 12px; font-weight: 800; cursor: pointer; }
+        .copy-btn { background: #ff4500; border: none; color: white; padding: 10px 18px; border-radius: 12px; font-weight: 800; cursor: pointer; }
 
         #toast {
             visibility: hidden; min-width: 200px; background: #ff4500; color: white;
@@ -75,7 +76,7 @@
         }
         #toast.show { visibility: visible; animation: pop 0.4s; }
 
-        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-12px);} 60% {transform: translateY(-6px);} }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-10px);} }
         @keyframes pop { from {opacity: 0; bottom: 10px;} to {opacity: 1; bottom: 40px;} }
     </style>
 </head>
@@ -84,20 +85,22 @@
     <video autoplay muted loop playsinline id="bg-video">
         <source src="https://files.catbox.moe/fga606.mp4" type="video/mp4">
     </video>
-    
     <div id="particles-js"></div>
-    <audio id="bg-music" loop><source src="music.mp3" type="audio/mpeg"></audio>
+    
+    <audio id="bg-music" loop playsinline pre-load="auto">
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
 
     <div class="welcome-section">
         <h2>Welcome to my page</h2>
-        <p>Just a developer who makes codes for fun or when bored... Enjoy the music.</p>
+        <p>Just a developer who makes codes for fun or when bored...</p>
         <div class="scroll-hint"><i class="fas fa-chevron-down"></i></div>
     </div>
 
     <div class="profile-container">
         <div class="card">
             <div class="profile-img"></div>
-            <h1>Darkside</h1>
+            <h1>DARKSIDE</h1>
             
             <div class="music-ui">
                 <i id="play-btn" class="fas fa-play music-btn" onclick="toggleMusic()"></i>
@@ -110,7 +113,6 @@
                         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA">
                         <span class="tile-name">WhatsApp</span>
                     </div>
-                    <i class="fas fa-paper-plane" style="opacity:0.4;"></i>
                 </a>
 
                 <a href="https://t.me/darkside_solos" class="tile">
@@ -118,7 +120,6 @@
                         <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="TG">
                         <span class="tile-name">Telegram</span>
                     </div>
-                    <i class="fas fa-paper-plane" style="opacity:0.4;"></i>
                 </a>
 
                 <div class="tile" onclick="copyVal('8443778220')" style="cursor:pointer">
@@ -138,12 +139,12 @@
     <script>
         particlesJS("particles-js", {
             "particles": {
-                "number": { "value": 160, "density": { "enable": true, "value_area": 800 } },
+                "number": { "value": 150 },
                 "color": { "value": "#ffffff" },
                 "shape": { "type": "circle" },
                 "opacity": { "value": 0.6, "random": true },
                 "size": { "value": 3.5, "random": true },
-                "move": { "enable": true, "speed": 2, "direction": "bottom", "out_mode": "out" }
+                "move": { "enable": true, "speed": 1.5, "direction": "bottom", "out_mode": "out" }
             }
         });
 
@@ -151,9 +152,15 @@
         const playBtn = document.getElementById("play-btn");
         const volumeSlider = document.getElementById("volume-slider");
 
+        // iPhone Fix: Audio MUST be triggered by a direct user click
         function toggleMusic() {
-            if (music.paused) { music.play(); playBtn.className = "fas fa-pause music-btn"; }
-            else { music.pause(); playBtn.className = "fas fa-play music-btn"; }
+            if (music.paused) { 
+                music.play().catch(e => console.log("iPhone requires user interaction first"));
+                playBtn.className = "fas fa-pause music-btn"; 
+            } else { 
+                music.pause(); 
+                playBtn.className = "fas fa-play music-btn"; 
+            }
         }
 
         volumeSlider.addEventListener("input", (e) => { music.volume = e.target.value; });
