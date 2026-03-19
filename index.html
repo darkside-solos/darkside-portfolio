@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Darkside Solos | Official</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Inter:wght@400;700&family=Permanent+Marker&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body, html { background: #000; color: white; font-family: 'Inter', sans-serif; scroll-behavior: smooth; overflow-x: hidden; min-height: 200vh; }
+        body, html { background: #000; color: white; font-family: 'Inter', sans-serif; scroll-behavior: smooth; overflow-x: hidden; }
 
+        /* Background & Snow - Fixed to whole screen */
         #bg-video, #particles-js {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -100;
             object-fit: cover; filter: brightness(0.2);
@@ -21,60 +21,63 @@
         /* 1. TOP WELCOME SECTION */
         .welcome-section {
             height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
-            text-align: center; padding: 20px; position: relative;
+            text-align: center; padding: 20px;
         }
-        .welcome-section h2 { font-family: 'Orbitron', sans-serif; font-size: 1.6rem; color: #ff8c00; margin-bottom: 15px; letter-spacing: 2px; }
-        .welcome-section p { font-size: 1rem; color: #bbb; max-width: 320px; line-height: 1.6; }
-        .scroll-hint { position: absolute; bottom: 30px; animation: bounce 2s infinite; color: #ff4500; font-size: 1.5rem; }
+        .welcome-section h2 { font-family: 'Orbitron', sans-serif; font-size: 1.8rem; color: #ff8c00; margin-bottom: 15px; letter-spacing: 2px; }
+        .welcome-section p { font-size: 1.1rem; color: #bbb; max-width: 350px; line-height: 1.6; }
+        .scroll-hint { margin-top: 50px; animation: bounce 2s infinite; color: #ff4500; font-size: 1.8rem; }
 
         /* 2. PROFILE SECTION */
         .profile-container {
-            min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 40px 20px;
+            min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 60px 20px;
         }
         .card {
-            background: rgba(255, 255, 255, 0.04); backdrop-filter: blur(35px); -webkit-backdrop-filter: blur(35px);
+            background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
             border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 40px;
             padding: 45px 20px; width: 100%; max-width: 420px; text-align: center;
-            box-shadow: 0 0 80px rgba(0,0,0,1);
+            box-shadow: 0 0 80px rgba(0,0,0,0.8);
         }
 
         .profile-img {
-            width: 125px; height: 125px; border-radius: 50%; border: 3px solid #ff4500;
-            margin: 0 auto 15px; background: url('https://files.catbox.moe/w2mevz.jpg') center/cover;
+            width: 130px; height: 130px; border-radius: 50%; border: 3px solid #ff4500;
+            margin: 0 auto 20px; background: url('https://files.catbox.moe/w2mevz.jpg') center/cover;
             box-shadow: 0 0 30px rgba(255, 69, 0, 0.5);
         }
 
-        h1 { font-family: 'Orbitron', sans-serif; font-size: 2.2rem; margin-bottom: 25px; letter-spacing: 2px; }
+        h1 { font-family: 'Orbitron', sans-serif; font-size: 2.4rem; margin-bottom: 30px; letter-spacing: 2px; }
 
+        /* Music UI */
         .music-ui {
-            background: rgba(0,0,0,0.5); border-radius: 20px; padding: 15px; margin-bottom: 30px;
-            display: flex; align-items: center; justify-content: center; gap: 15px; border: 1px solid rgba(255, 69, 0, 0.2);
+            background: rgba(0,0,0,0.6); border-radius: 20px; padding: 15px; margin-bottom: 30px;
+            display: flex; align-items: center; justify-content: center; gap: 15px; border: 1px solid rgba(255, 69, 0, 0.3);
         }
-        .music-btn { cursor: pointer; color: #ff4500; font-size: 1.4rem; }
-        #volume-slider { width: 90px; accent-color: #ff4500; cursor: pointer; }
+        .music-btn { cursor: pointer; color: #ff4500; font-size: 1.6rem; transition: 0.3s; }
+        #volume-slider { width: 100px; accent-color: #ff4500; cursor: pointer; }
 
+        /* Links Stack */
         .links-stack { display: flex; flex-direction: column; gap: 15px; }
         .tile {
-            background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 18px; border-radius: 22px; text-decoration: none; color: white;
-            display: flex; align-items: center; justify-content: space-between;
+            background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px; border-radius: 25px; text-decoration: none; color: white;
+            display: flex; align-items: center; justify-content: space-between; transition: 0.3s;
         }
+        .tile:active { transform: scale(0.98); background: rgba(255, 69, 0, 0.1); }
         .tile-left { display: flex; align-items: center; gap: 15px; }
-        .tile-left img { width: 34px; height: 34px; object-fit: contain; }
-        .tile-name { font-weight: 700; font-size: 1.1rem; }
-        .tile-id { font-family: monospace; font-size: 1rem; color: #aaa; }
+        .tile-left img { width: 36px; height: 36px; object-fit: contain; }
+        .tile-name { font-weight: 700; font-size: 1.2rem; }
+        .tile-id { font-family: monospace; font-size: 1.1rem; color: #ff8c00; font-weight: 900; }
 
         .copy-btn { background: #ff4500; border: none; color: white; padding: 10px 20px; border-radius: 12px; font-weight: 800; cursor: pointer; }
 
         #toast {
-            visibility: hidden; min-width: 180px; background: #ff4500; color: white;
-            padding: 12px; position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            visibility: hidden; min-width: 200px; background: #ff4500; color: white;
+            padding: 15px; position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%);
             border-radius: 50px; font-weight: 800; z-index: 9999; text-align: center;
         }
         #toast.show { visibility: visible; animation: pop 0.4s; }
 
-        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-10px);} 60% {transform: translateY(-5px);} }
-        @keyframes pop { from {opacity: 0; bottom: 10px;} to {opacity: 1; bottom: 30px;} }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-12px);} 60% {transform: translateY(-6px);} }
+        @keyframes pop { from {opacity: 0; bottom: 10px;} to {opacity: 1; bottom: 40px;} }
     </style>
 </head>
 <body>
@@ -82,16 +85,99 @@
     <video autoplay muted loop playsinline id="bg-video">
         <source src="https://files.catbox.moe/fga606.mp4" type="video/mp4">
     </video>
+    
     <div id="particles-js"></div>
+    
     <audio id="bg-music" loop><source src="music.mp3" type="audio/mpeg"></audio>
 
     <div class="welcome-section">
-        <h2 data-aos="fade-up">Welcome to my page</h2>
-        <p data-aos="fade-up" data-aos-delay="200">
-            Just a developer who makes codes for fun or when bored... Enjoy the music.
-        </p>
+        <h2>Welcome to my page</h2>
+        <p>Just a developer who makes codes for fun or when bored... Enjoy the music.</p>
         <div class="scroll-hint"><i class="fas fa-chevron-down"></i></div>
     </div>
 
     <div class="profile-container">
-        <div class="card" data-aos
+        <div class="card">
+            <div class="profile-img"></div>
+            <h1>Darkside</h1>
+            
+            <div class="music-ui">
+                <i id="play-btn" class="fas fa-play music-btn" onclick="toggleMusic()"></i>
+                <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.5">
+            </div>
+
+            <div class="links-stack">
+                <a href="https://wa.me/233530729233" class="tile">
+                    <div class="tile-left">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3670/3670051.png" alt="WA">
+                        <span class="tile-name">WhatsApp</span>
+                    </div>
+                    <i class="fas fa-paper-plane" style="opacity:0.4;"></i>
+                </a>
+
+                <a href="https://t.me/darkside_solos" class="tile">
+                    <div class="tile-left">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="TG">
+                        <span class="tile-name">Telegram</span>
+                    </div>
+                    <i class="fas fa-paper-plane" style="opacity:0.4;"></i>
+                </a>
+
+                <div class="tile" onclick="copyVal('8443778220')" style="cursor:pointer">
+                    <div class="tile-left">
+                        <img src="https://w7.pngwing.com/pngs/423/116/png-transparent-garena-free-fire-battlegrounds-logo-game-thumbnail.png" alt="FF">
+                        <span class="tile-id">8443778220</span>
+                    </div>
+                    <button class="copy-btn">COPY</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast">✅ UID COPIED!</div>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Eternal Snow Config
+        particlesJS("particles-js", {
+            "particles": {
+                "number": { "value": 160, "density": { "enable": true, "value_area": 800 } },
+                "color": { "value": "#ffffff" },
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.6, "random": true },
+                "size": { "value": 3.5, "random": true },
+                "move": { 
+                    "enable": true, 
+                    "speed": 2, 
+                    "direction": "bottom", 
+                    "out_mode": "out" 
+                }
+            }
+        });
+
+        const music = document.getElementById("bg-music");
+        const playBtn = document.getElementById("play-btn");
+        const volumeSlider = document.getElementById("volume-slider");
+
+        function toggleMusic() {
+            if (music.paused) { 
+                music.play(); 
+                playBtn.className = "fas fa-pause music-btn"; 
+            } else { 
+                music.pause(); 
+                playBtn.className = "fas fa-play music-btn"; 
+            }
+        }
+
+        volumeSlider.addEventListener("input", (e) => { music.volume = e.target.value; });
+        
+        function copyVal(val) {
+            navigator.clipboard.writeText(val).then(() => {
+                const t = document.getElementById("toast");
+                t.className = "show";
+                setTimeout(() => { t.className = ""; }, 3000);
+            });
+        }
+    </script>
+</body>
+</html>
