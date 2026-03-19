@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Darkside Solos | Official</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Inter:wght@400;700&family=Permanent+Marker&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body, html { background: #000; color: white; font-family: 'Inter', sans-serif; scroll-behavior: smooth; overflow-x: hidden; }
 
-        /* Background & Snow - Fixed to whole screen */
+        /* Background & Snow */
         #bg-video, #particles-js {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -100;
             object-fit: cover; filter: brightness(0.2);
@@ -61,9 +61,8 @@
             padding: 20px; border-radius: 25px; text-decoration: none; color: white;
             display: flex; align-items: center; justify-content: space-between; transition: 0.3s;
         }
-        .tile:active { transform: scale(0.98); background: rgba(255, 69, 0, 0.1); }
         .tile-left { display: flex; align-items: center; gap: 15px; }
-        .tile-left img { width: 36px; height: 36px; object-fit: contain; }
+        .tile-left img { width: 38px; height: 38px; object-fit: contain; }
         .tile-name { font-weight: 700; font-size: 1.2rem; }
         .tile-id { font-family: monospace; font-size: 1.1rem; color: #ff8c00; font-weight: 900; }
 
@@ -87,7 +86,6 @@
     </video>
     
     <div id="particles-js"></div>
-    
     <audio id="bg-music" loop><source src="music.mp3" type="audio/mpeg"></audio>
 
     <div class="welcome-section">
@@ -109,15 +107,15 @@
             <div class="links-stack">
                 <a href="https://wa.me/233530729233" class="tile">
                     <div class="tile-left">
-                        <img src="https://cdn-icons-png.flaticon.com/512/3670/3670051.png" alt="WA">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA">
                         <span class="tile-name">WhatsApp</span>
                     </div>
                     <i class="fas fa-paper-plane" style="opacity:0.4;"></i>
                 </a>
 
-                <a href="https://t.me/darkside_solos" class="tile">
+                <a href="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" class="tile">
                     <div class="tile-left">
-                        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="TG">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="TG">
                         <span class="tile-name">Telegram</span>
                     </div>
                     <i class="fas fa-paper-plane" style="opacity:0.4;"></i>
@@ -125,7 +123,7 @@
 
                 <div class="tile" onclick="copyVal('8443778220')" style="cursor:pointer">
                     <div class="tile-left">
-                        <img src="https://w7.pngwing.com/pngs/423/116/png-transparent-garena-free-fire-battlegrounds-logo-game-thumbnail.png" alt="FF">
+                        <img src="https://files.catbox.moe/kixqay.png" alt="FF">
                         <span class="tile-id">8443778220</span>
                     </div>
                     <button class="copy-btn">COPY</button>
@@ -138,7 +136,6 @@
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        // Eternal Snow Config
         particlesJS("particles-js", {
             "particles": {
                 "number": { "value": 160, "density": { "enable": true, "value_area": 800 } },
@@ -146,12 +143,7 @@
                 "shape": { "type": "circle" },
                 "opacity": { "value": 0.6, "random": true },
                 "size": { "value": 3.5, "random": true },
-                "move": { 
-                    "enable": true, 
-                    "speed": 2, 
-                    "direction": "bottom", 
-                    "out_mode": "out" 
-                }
+                "move": { "enable": true, "speed": 2, "direction": "bottom", "out_mode": "out" }
             }
         });
 
@@ -160,13 +152,8 @@
         const volumeSlider = document.getElementById("volume-slider");
 
         function toggleMusic() {
-            if (music.paused) { 
-                music.play(); 
-                playBtn.className = "fas fa-pause music-btn"; 
-            } else { 
-                music.pause(); 
-                playBtn.className = "fas fa-play music-btn"; 
-            }
+            if (music.paused) { music.play(); playBtn.className = "fas fa-pause music-btn"; }
+            else { music.pause(); playBtn.className = "fas fa-play music-btn"; }
         }
 
         volumeSlider.addEventListener("input", (e) => { music.volume = e.target.value; });
