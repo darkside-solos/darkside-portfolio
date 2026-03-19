@@ -12,39 +12,71 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body, html { background: #000; color: white; font-family: 'Inter', sans-serif; scroll-behavior: smooth; overflow-x: hidden; }
 
-        /* Background Video & Snow */
-        #bg-video, #particles-js {
+        /* Background Video */
+        #bg-video {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -100;
-            object-fit: cover; filter: brightness(0.35); /* Increased brightness to see the video better */
+            object-fit: cover; filter: brightness(0.4); 
         }
 
         .welcome-section {
             height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
             text-align: center; padding: 20px;
         }
-        .welcome-section h2 { font-family: 'Orbitron', sans-serif; font-size: 1.8rem; color: #ff8c00; margin-bottom: 15px; }
 
         .profile-container {
             min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 60px 20px;
         }
 
-        /* FULLY TRANSPARENT CARD */
+        /* SEMI-TRANSPARENT LIGHTER CARD */
         .card {
-            background: rgba(255, 255, 255, 0); /* Removed background color */
-            backdrop-filter: blur(10px); /* Slight blur so text stays readable */
-            -webkit-backdrop-filter: blur(10px);
-            border: 1.5px solid rgba(255, 255, 255, 0.2); /* Soft border to define the card shape */
+            background: rgba(255, 255, 255, 0.1); /* Lighter than background */
+            backdrop-filter: blur(15px); 
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2); 
             border-radius: 40px;
             padding: 45px 20px; width: 100%; max-width: 420px; text-align: center;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
         }
 
         .profile-img {
             width: 130px; height: 130px; border-radius: 50%; border: 3px solid #ff4500;
             margin: 0 auto 20px; background: url('https://files.catbox.moe/w2mevz.jpg') center/cover;
-            box-shadow: 0 0 25px rgba(255, 69, 0, 0.6);
+            box-shadow: 0 0 30px rgba(255, 69, 0, 0.7);
         }
 
-        h1 { font-family: 'Orbitron', sans-serif; font-size: 2.6rem; margin-bottom: 25px; letter-spacing: 3px; }
+        /* ORANGE GLOW NAME */
+        h1 { 
+            font-family: 'Orbitron', sans-serif; 
+            font-size: 2.8rem; 
+            margin-bottom: 25px; 
+            letter-spacing: 4px; 
+            color: #fff;
+            text-shadow: 0 0 10px #ff8c00, 0 0 20px #ff4500, 0 0 30px #ff0000;
+            animation: pulseGlow 2s infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            from { text-shadow: 0 0 10px #ff8c00, 0 0 20px #ff4500; }
+            to { text-shadow: 0 0 20px #ff8c00, 0 0 40px #ff4500, 0 0 60px #ff0000; }
+        }
+
+        /* LIGHTER GLASS TILES */
+        .links-stack { display: flex; flex-direction: column; gap: 15px; }
+        .tile {
+            background: rgba(255, 255, 255, 0.15); /* Slightly lighter for visibility */
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 20px; border-radius: 25px; text-decoration: none; color: white;
+            display: flex; align-items: center; justify-content: space-between;
+            transition: 0.3s ease;
+        }
+        .tile:hover { background: rgba(255, 255, 255, 0.25); transform: translateY(-2px); }
+
+        .tile-left { display: flex; align-items: center; gap: 15px; }
+        .tile-left img { width: 38px; height: 38px; object-fit: contain; }
+        .tile-name { font-weight: 700; font-size: 1.2rem; }
+        .tile-id { font-family: monospace; font-size: 1.1rem; color: #ff8c00; font-weight: 900; }
+
+        .copy-btn { background: #ff4500; border: none; color: white; padding: 10px 18px; border-radius: 12px; font-weight: 800; cursor: pointer; }
 
         .music-ui {
             background: rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 15px; margin-bottom: 30px;
@@ -53,22 +85,6 @@
         .music-btn { cursor: pointer; color: #ff4500; font-size: 1.6rem; }
         #volume-slider { width: 100px; accent-color: #ff4500; cursor: pointer; }
 
-        /* TRANSPARENT TILES */
-        .links-stack { display: flex; flex-direction: column; gap: 15px; }
-        .tile {
-            background: rgba(255, 255, 255, 0.05); /* Very light transparency */
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 20px; border-radius: 25px; text-decoration: none; color: white;
-            display: flex; align-items: center; justify-content: space-between;
-        }
-        .tile:active { background: rgba(255, 255, 255, 0.2); }
-        .tile-left { display: flex; align-items: center; gap: 15px; }
-        .tile-left img { width: 36px; height: 36px; object-fit: contain; }
-        .tile-name { font-weight: 700; font-size: 1.2rem; }
-        .tile-id { font-family: monospace; font-size: 1.1rem; color: #ff8c00; font-weight: 900; }
-
-        .copy-btn { background: #ff4500; border: none; color: white; padding: 10px 18px; border-radius: 12px; font-weight: 800; cursor: pointer; }
-
         #toast {
             visibility: hidden; min-width: 200px; background: #ff4500; color: white;
             padding: 15px; position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%);
@@ -76,7 +92,6 @@
         }
         #toast.show { visibility: visible; animation: pop 0.4s; }
 
-        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-10px);} }
         @keyframes pop { from {opacity: 0; bottom: 10px;} to {opacity: 1; bottom: 40px;} }
     </style>
 </head>
@@ -85,16 +100,14 @@
     <video autoplay muted loop playsinline id="bg-video">
         <source src="https://files.catbox.moe/fga606.mp4" type="video/mp4">
     </video>
-    <div id="particles-js"></div>
     
-    <audio id="bg-music" loop playsinline pre-load="auto">
+    <audio id="bg-music" loop playsinline>
         <source src="music.mp3" type="audio/mpeg">
     </audio>
 
     <div class="welcome-section">
-        <h2>Welcome to my page</h2>
-        <p>Just a developer who makes codes for fun or when bored...</p>
-        <div class="scroll-hint"><i class="fas fa-chevron-down"></i></div>
+        <h2 style="color: #ff8c00; font-family: 'Orbitron';">Welcome to my page</h2>
+        <p style="color: #ccc; margin-top: 10px;">Just a developer who makes codes for fun...feel free to text me ion bite</p>
     </div>
 
     <div class="profile-container">
@@ -135,27 +148,14 @@
 
     <div id="toast">✅ UID COPIED!</div>
 
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        particlesJS("particles-js", {
-            "particles": {
-                "number": { "value": 150 },
-                "color": { "value": "#ffffff" },
-                "shape": { "type": "circle" },
-                "opacity": { "value": 0.6, "random": true },
-                "size": { "value": 3.5, "random": true },
-                "move": { "enable": true, "speed": 1.5, "direction": "bottom", "out_mode": "out" }
-            }
-        });
-
         const music = document.getElementById("bg-music");
         const playBtn = document.getElementById("play-btn");
         const volumeSlider = document.getElementById("volume-slider");
 
-        // iPhone Fix: Audio MUST be triggered by a direct user click
         function toggleMusic() {
             if (music.paused) { 
-                music.play().catch(e => console.log("iPhone requires user interaction first"));
+                music.play();
                 playBtn.className = "fas fa-pause music-btn"; 
             } else { 
                 music.pause(); 
@@ -163,15 +163,4 @@
             }
         }
 
-        volumeSlider.addEventListener("input", (e) => { music.volume = e.target.value; });
-        
-        function copyVal(val) {
-            navigator.clipboard.writeText(val).then(() => {
-                const t = document.getElementById("toast");
-                t.className = "show";
-                setTimeout(() => { t.className = ""; }, 3000);
-            });
-        }
-    </script>
-</body>
-</html>
+        volumeSlider.addEventListener("input", (e) => { music.volume = e.target.value;
