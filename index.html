@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Darkside Solos | Official Portfolio</title>
+    
+    <link rel="icon" type="image/png" href="https://w7.pngwing.com/pngs/423/116/png-transparent-garena-free-fire-battlegrounds-logo-game-thumbnail.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body, html { height: 100%; width: 100%; overflow-x: hidden; background: #000; color: white; }
+
+        #bg-video {
+            position: fixed; top: 50%; left: 50%; min-width: 100%; min-height: 100%;
+            z-index: -100; transform: translate(-50%, -50%);
+            object-fit: cover; filter: brightness(0.3) contrast(1.1);
+        }
+
+        .container { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
+
+        .profile-card {
+            background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 35px;
+            padding: 30px; width: 100%; max-width: 440px; text-align: center;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+        }
+
+        .visitor-badge {
+            background: rgba(255, 140, 0, 0.2); color: #ff8c00;
+            padding: 5px 15px; border-radius: 20px; font-size: 0.7rem;
+            font-weight: 800; display: inline-block; margin-bottom: 15px;
+            border: 1px solid rgba(255, 140, 0, 0.3);
+        }
+
+        .music-player-ui { background: rgba(0,0,0,0.4); padding: 15px; border-radius: 20px; margin-bottom: 20px; }
+        .avatar { width: 90px; height: 90px; background: linear-gradient(135deg, #ff8c00, #ff4500); border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; font-size: 2.2rem; font-weight: 900; }
+
+        h1 { font-size: 2rem; margin-bottom: 5px; letter-spacing: -1px; }
+        .tagline { color: #ff8c00; font-weight: 700; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 15px; }
+
+        /* Skills Section */
+        .skills-container { margin-bottom: 20px; text-align: left; padding: 0 10px; }
+        .skill-row { margin-bottom: 8px; }
+        .skill-row span { font-size: 0.7rem; color: rgba(255,255,255,0.7); display: block; margin-bottom: 3px; }
+        .bar { width: 100%; height: 5px; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; }
+        .fill { height: 100%; background: #ff8c00; animation: slideIn 2s ease-out; }
+        @keyframes slideIn { from { width: 0%; } }
+
+        .info-item { background: rgba(255, 255, 255, 0.05); padding: 15px; border-radius: 12px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; border: 1px solid rgba(255, 255, 255, 0.1); }
+        .copy-btn { background: #ff8c00; border: none; color: white; padding: 6px 12px; border-radius: 8px; font-weight: 800; cursor: pointer; }
+
+        .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 15px 0; }
+        .gallery img { width: 100%; height: 80px; object-fit: cover; border-radius: 10px; }
+
+        .btn-whatsapp { display: flex; align-items: center; justify-content: center; gap: 10px; background: #25D366; color: white; padding: 16px; border-radius: 15px; text-decoration: none; font-weight: 800; margin-top: 10px; }
+
+        input[type=range] { accent-color: #ff8c00; width: 80px; vertical-align: middle; }
+        #toast { visibility: hidden; min-width: 200px; background: #ff8c00; color: white; padding: 12px; position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); border-radius: 50px; font-weight: bold; z-index: 1000; }
+        #toast.show { visibility: visible; animation: fade 0.5s; }
+        @keyframes fade { from {opacity: 0;} to {opacity: 1;} }
+    </style>
+</head>
+<body>
+
+    <video autoplay muted loop playsinline id="bg-video">
+        <source src="https://files.catbox.moe/fga606.mp4" type="video/mp4">
+    </video>
+
+    <audio id="myAudio" loop><source src="music.mp3" type="audio/mpeg"></audio>
+
+    <div class="container">
+        <div class="profile-card">
+            
+            <div class="visitor-badge">
+                👁️ <img src="https://hitwebcounter.com/counter/counter.php?page=darkside_solos_portfolio&style=0006&nbdigits=5&type=page&initCount=0" style="vertical-align: middle; height: 14px; filter: invert(1);"> VIEWS
+            </div>
+
+            <div class="music-player-ui">
+                <div onclick="toggleMusic()" style="cursor:pointer; margin-bottom: 8px;">
+                    <i id="music-icon" class="fas fa-play"></i> <span id="music-text" style="font-size:0.7rem; font-weight:800;">PLAY MUSIC</span>
+                </div>
+                <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.5">
+            </div>
+
+            <div class="avatar">DS</div>
+            <h1>Darkside Solos</h1>
+            <p class="tagline">Coder • Pro Gamer • Creator</p>
+            
+            <div class="skills-container">
+                <div class="skill-row"><span>Node.js / Bot Dev</span><div class="bar"><div class="fill" style="width: 85%;"></div></div></div>
+                <div class="skill-row"><span>HTML / CSS / JS</span><div class="bar"><div class="fill" style="width: 75%;"></div></div></div>
+            </div>
+
+            <div class="info-item">
+                <span><img src="https://w7.pngwing.com/pngs/423/116/png-transparent-garena-free-fire-battlegrounds-logo-game-thumbnail.png" style="width:18px; vertical-align:middle;"> UID</span>
+                <span>8443778220 <button class="copy-btn" onclick="copyUID()">COPY</button></span>
+            </div>
+
+            <div class="gallery">
+                <a href="s1.jpg" data-lightbox="ss"><img src="s1.jpg"></a>
+                <a href="s2.jpg" data-lightbox="ss"><img src="s2.jpg"></a>
+                <a href="s3.jpg" data-lightbox="ss"><img src="s3.jpg"></a>
+            </div>
+
+            <a href="https://wa.me/233530729233" class="btn-whatsapp">
+                <i class="fab fa-whatsapp" style="font-size: 1.2rem;"></i> CHAT ON WHATSAPP
+            </a>
+        </div>
+    </div>
+
+    <div id="toast">✅ UID Copied!</div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+    <script>
+        const audio = document.getElementById("myAudio");
+        const icon = document.getElementById("music-icon");
+        const text = document.getElementById("music-text");
+        const vol = document.getElementById("volume-slider");
+
+        audio.volume = 0.5;
+        vol.addEventListener("input", (e) => { audio.volume = e.target.value; });
+
+        function toggleMusic() {
+            if (audio.paused) { audio.play(); icon.className = "fas fa-pause"; text.innerText = "PAUSE MUSIC"; } 
+            else { audio.pause(); icon.className = "fas fa-play"; text.innerText = "PLAY MUSIC"; }
+        }
+
+        function copyUID() {
+            navigator.clipboard.writeText("8443778220").then(() => {
+                const t = document.getElementById("toast");
+                t.className = "show";
+                setTimeout(() => { t.className = ""; }, 3000);
+            });
+        }
+
+        document.body.addEventListener('click', () => {
+            if (audio.paused) { 
+                audio.play().then(() => { icon.className = "fas fa-pause"; text.innerText = "PAUSE MUSIC"; });
+            }
+        }, { once: true });
+    </script>
+</body>
+</html>
